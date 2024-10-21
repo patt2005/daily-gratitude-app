@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:daily_gratitude_journal/pages/navigation_page.dart';
 import 'package:daily_gratitude_journal/pages/onboarding_page.dart';
+import 'package:daily_gratitude_journal/services/journal_service.dart';
 import 'package:daily_gratitude_journal/utilities/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
@@ -28,10 +30,14 @@ class _IntroPageState extends State<IntroPage> {
         }
       });
     });
-    _navigate();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _navigate(),
+    );
   }
 
   void _navigate() async {
+    final provider = Provider.of<JournalService>(context, listen: false);
+    await provider.loadPosts();
     if (await isFirstAppLaunch()) {
       await Future.delayed(
         const Duration(seconds: 3),

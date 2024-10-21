@@ -12,10 +12,6 @@ class JournalService extends ChangeNotifier {
   List<Post> get posts => _posts;
   Quote get quote => _quote;
 
-  JournalService() {
-    _loadPosts();
-  }
-
   Future<void> addPost(Post post) async {
     _posts.add(post);
     await _saveChanges();
@@ -34,7 +30,7 @@ class JournalService extends ChangeNotifier {
     await prefs.setStringList('posts', postStrings);
   }
 
-  Future<void> _loadPosts() async {
+  Future<void> loadPosts() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? postStrings = prefs.getStringList('posts');
     if (postStrings != null) {

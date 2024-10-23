@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 late Size screenSize;
 
@@ -12,11 +12,12 @@ String formatDate(DateTime date) {
 }
 
 Future<bool> isFirstAppLaunch() async {
-  SharedPreferences preferences = await SharedPreferences.getInstance();
-  bool? launch = preferences.getBool("launch");
-  if (launch == null) {
-    await preferences.setBool("launch", true);
-    return true;
+  final box = Hive.box('settings'); // Open or use the 'settings' box
+  bool? launch = box.get('launch', defaultValue: false); // Retrieve 'launch'
+
+  if (launch == false) {
+    await box.put('launch', true); // Set 'launch' to true for the first time
+    return true; // Indicating first launch
   }
-  return false;
+  return false; // Not the first launch
 }

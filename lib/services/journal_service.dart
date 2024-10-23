@@ -1,9 +1,9 @@
+import 'package:hive/hive.dart';
 import 'dart:convert';
 import 'package:daily_gratitude_journal/models/post.dart';
 import 'package:daily_gratitude_journal/models/quote.dart';
 import 'package:daily_gratitude_journal/services/api_service.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class JournalService extends ChangeNotifier {
   Quote _quote = Quote(text: "", author: "");
@@ -24,15 +24,15 @@ class JournalService extends ChangeNotifier {
   }
 
   Future<void> _saveChanges() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final box = Hive.box('journal');
     List<String> postStrings =
         _posts.map((post) => jsonEncode(post.toJson())).toList();
-    await prefs.setStringList('posts', postStrings);
+    await box.put('posts', postStrings);
   }
 
   Future<void> loadPosts() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String>? postStrings = prefs.getStringList('posts');
+    final box = Hive.box('journal');
+    List<dynamic>? postStrings = box.get('posts');
     if (postStrings != null) {
       _posts.clear();
       _posts.addAll(

@@ -34,7 +34,7 @@ class _PostPageState extends State<PostPage> {
           Post(
             title: _titleController.text,
             description: _subtitleController.text,
-            icon: icons[selectedIndex],
+            icon: PostIcon.values[selectedIndex],
             date: DateTime.now(),
             category: categories[selectedIndex],
             color: colors[selectedIndex],

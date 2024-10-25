@@ -56,7 +56,7 @@ class PostWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     Icon(
-                      post.icon,
+                      post.icon.icon,
                       color: Colors.black87,
                       size: 15,
                     ),

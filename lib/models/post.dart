@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class Post {
   final String title;
   final String description;
-  final IconData icon;
+  final PostIcon icon;
   final DateTime date;
   final String category;
   final Color color;
@@ -12,7 +12,7 @@ class Post {
   Post({
     required this.title,
     required this.description,
-    required this.icon,
+    this.icon = PostIcon.smile,
     required this.date,
     required this.category,
     required this.color,
@@ -21,7 +21,7 @@ class Post {
   Map<String, dynamic> toJson() => {
         'title': title,
         'description': description,
-        'icon': icon.codePoint,
+        'icon': icon.index, // Store icon as enum index
         'date': date.toIso8601String(),
         'category': category,
         'color': color.value,
@@ -30,7 +30,7 @@ class Post {
   static Post fromJson(Map<String, dynamic> json) => Post(
         title: json['title'],
         description: json['description'],
-        icon: IconData(json['icon'], fontFamily: 'FontAwesomeIcons'),
+        icon: PostIcon.values[json['icon']], // Retrieve icon from enum
         date: DateTime.parse(json['date']),
         category: json['category'],
         color: Color(json['color']),
@@ -46,6 +46,19 @@ final List<String> categories = [
   "Sad",
   "Terrible",
 ];
+
+enum PostIcon {
+  laugh(FontAwesomeIcons.faceLaughSquint),
+  smile(FontAwesomeIcons.faceSmile),
+  grin(FontAwesomeIcons.faceGrinTongue),
+  meh(FontAwesomeIcons.faceMeh),
+  rollingEyes(FontAwesomeIcons.faceRollingEyes),
+  sadTear(FontAwesomeIcons.faceSadTear),
+  sadCry(FontAwesomeIcons.faceSadCry);
+
+  final IconData icon;
+  const PostIcon(this.icon);
+}
 
 final List<IconData> icons = [
   FontAwesomeIcons.faceLaughSquint,

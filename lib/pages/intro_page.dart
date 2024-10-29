@@ -21,17 +21,19 @@ class _IntroPageState extends State<IntroPage> {
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(const Duration(milliseconds: 500), (Timer t) {
-      setState(() {
-        if (loadingText.length < 10) {
-          loadingText += '.';
-        } else {
-          loadingText = 'Loading';
-        }
-      });
-    });
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) => _navigate(),
+      (_) {
+        timer = Timer.periodic(const Duration(milliseconds: 500), (Timer t) {
+          setState(() {
+            if (loadingText.length < 10) {
+              loadingText += '.';
+            } else {
+              loadingText = 'Loading';
+            }
+          });
+        });
+        _navigate();
+      },
     );
   }
 

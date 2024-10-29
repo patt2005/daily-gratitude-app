@@ -1,13 +1,13 @@
-import 'package:hive/hive.dart';
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:daily_gratitude_journal/models/post.dart';
 import 'package:daily_gratitude_journal/models/quote.dart';
 import 'package:daily_gratitude_journal/services/api_service.dart';
-import 'package:flutter/cupertino.dart';
 
 class JournalService extends ChangeNotifier {
   Quote _quote = Quote(text: "", author: "");
   final List<Post> _posts = [];
+  final Map<String, dynamic> _sessionStorage = {};
 
   List<Post> get posts => _posts;
   Quote get quote => _quote;
@@ -24,16 +24,19 @@ class JournalService extends ChangeNotifier {
   }
 
   Future<void> _saveChanges() async {
-    final box = Hive.box('journal');
-    List<String> postStrings =
-        _posts.map((post) => jsonEncode(post.toJson())).toList();
-    await box.put('posts', postStrings);
+    try {
+      List<String> postStrings =
+          _posts.map((post) => jsonEncode(post.toJson())).toList();
+      _sessionStorage['journal_posts'] = postStrings;
+    } catch (e) {
+      print("Error saving posts: $e");
+    }
   }
 
   Future<void> loadPosts() async {
-    final box = Hive.box('journal');
-    List<dynamic>? postStrings = box.get('posts');
-    if (postStrings != null) {
+    try {
+      List<String> postStrings = _sessionStorage['journal_posts'] ?? <String>[];
+
       _posts.clear();
       _posts.addAll(
         postStrings.map(
@@ -41,6 +44,8 @@ class JournalService extends ChangeNotifier {
         ),
       );
       notifyListeners();
+    } catch (e) {
+      print("Error loading posts: $e");
     }
   }
 }

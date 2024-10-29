@@ -1,52 +1,15 @@
-platform :ios, '14.0'  # Updated the platform to 14.0 for modern iOS versions
+# Uncomment the next line to define a global platform for your project
+platform :ios, '14.0'
 
-# Disabling CocoaPods analytics to speed up the build.
-ENV['COCOAPODS_DISABLE_STATS'] = 'true'
-
-# Project configuration for different build profiles
-project 'Runner', {
-  'Debug' => :debug,
-  'Profile' => :release,  # Use release settings for Profile mode
-  'Release' => :release,
-}
-
-# Function to fetch the Flutter root path
-def flutter_root
-  generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
-  unless File.exist?(generated_xcode_build_settings_path)
-    raise "#{generated_xcode_build_settings_path} must exist. Run 'flutter pub get' first."
-  end
-
-  File.foreach(generated_xcode_build_settings_path) do |line|
-    matches = line.match(/FLUTTER_ROOT\=(.*)/)
-    return matches[1].strip if matches
-  end
-  raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Delete Generated.xcconfig and run 'flutter pub get'."
-end
-
-# Load the Flutter pod helper
-require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
-
-# Configure the iOS target for the Runner project
 target 'Runner' do
+  # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-  use_modular_headers!
 
-  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+  # Pods for Runner
 
-  # Configure RunnerTests to inherit search paths
   target 'RunnerTests' do
     inherit! :search_paths
+    # Pods for testing
   end
-end
 
-# Post-install hook to ensure deployment target compatibility
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
-    end
-
-    flutter_additional_ios_build_settings(target)
-  end
 end

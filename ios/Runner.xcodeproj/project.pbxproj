@@ -456,8 +456,8 @@
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = "\"$(inherited) \\\"${PODS_ROOT}/Target Support Files/Pods-Runner\\\"\"";
-				HEADER_SEARCH_PATHS = "\"$(inherited) \\\"${PODS_ROOT}/Target Support Files/Pods-Runner/Headers\\\"\"";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/Pods/Target Support Files/Pods-Runner\"";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Pods/Target Support Files/Pods-Runner/Headers\"";
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Daily Gratitude";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -651,8 +651,8 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = "\"$(inherited) \\\"${PODS_ROOT}/Target Support Files/Pods-Runner\\\"\"";
-				HEADER_SEARCH_PATHS = "\"$(inherited) \\\"${PODS_ROOT}/Target Support Files/Pods-Runner/Headers\\\"\"";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/Pods/Target Support Files/Pods-Runner\"";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Pods/Target Support Files/Pods-Runner/Headers\"";
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Daily Gratitude";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -680,8 +680,8 @@
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = "\"$(inherited) \\\"${PODS_ROOT}/Target Support Files/Pods-Runner\\\"\"";
-				HEADER_SEARCH_PATHS = "\"$(inherited) \\\"${PODS_ROOT}/Target Support Files/Pods-Runner/Headers\\\"\"";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/Pods/Target Support Files/Pods-Runner\"";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Pods/Target Support Files/Pods-Runner/Headers\"";
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Daily Gratitude";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
